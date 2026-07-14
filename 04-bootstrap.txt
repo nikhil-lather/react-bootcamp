@@ -1,0 +1,4 @@
+just npm i bootstrap
+
+and import it in your index.js file. or main.jsx file.
+import 'bootstrap/dist/css/bootstrap.min.css';
