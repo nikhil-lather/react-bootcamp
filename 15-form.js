@@ -127,6 +127,8 @@ function App() {
       [e.target.name]: e.target.value,
     });
   };
+//   e.target.name  → Which input? (username/email/password)
+//   e.target.value → What did the user type?
 
   return (
     <>
@@ -321,3 +323,61 @@ To stop the browser's default form submission, which reloads the page.
 
 3. Why use one handleChange for multiple inputs?
 By using the input's name attribute and computed property names ([e.target.name]), a single function can update different fields.
+
+////////////////////////////////////////////
+
+The action attribute in a <form> specifies where the form data should be sent after submission.
+
+Syntax
+<form action="URL">
+  ...
+</form>
+action → URL or path where the form data is submitted.
+If omitted, the form submits to the current page.
+Example 1: Basic HTML Form
+<form action="/login">
+  <input type="text" name="username">
+  <button type="submit">Login</button>
+</form>
+
+When the user clicks Login, the browser sends the form data to:
+
+/login
+Example 2: With GET Method
+<form action="/search" method="GET">
+  <input type="text" name="query">
+  <button type="submit">Search</button>
+</form>
+
+If the user enters:
+
+React
+
+The browser navigates to:
+
+/search?query=React
+How React Handles Forms
+
+In React, you usually do not use the action attribute because React handles form submission itself.
+
+Instead, use onSubmit:
+
+function App() {
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    console.log("Form Submitted");
+  };
+
+  return (
+    <form onSubmit={handleSubmit}>
+      <input type="text" />
+      <button type="submit">Submit</button>
+    </form>
+  );
+}
+
+Here:
+
+onSubmit handles the submission.
+e.preventDefault() prevents the browser from following the default behavior (submitting the form and reloading/navigating).
+You can then send the data using fetch() or axios.
