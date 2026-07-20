@@ -464,3 +464,10 @@ Context.Provider's value prop can hold any valid JavaScript value, including:
 ✅ State → { theme, setTheme } (most common pattern)
 
 remember one thing always try to pass an object while using Context with multiple values and functions in real projects. It keeps your code organized and makes it easier to manage shared state across components.
+
+console.log(name);
+var name = "nikhil";
+console.log(fullName);
+let fullName = "Nikhil Latherr";
+console.log(age);
+const age = 22;

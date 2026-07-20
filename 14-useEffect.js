@@ -492,3 +492,38 @@ setUsers(data);
 setUsers updates the users state with the fetched data. Since React state changed, React re-renders the component, and users now contains the array returned from the API.
 
 This pattern—fetch data inside useEffect → store it with setState → render it with map()—is one of the most common patterns you'll use in React applications.
+
+
+Advanced useEffect – Cleaning Up Async Requests
+
+Junior Way ❌
+
+useEffect(() => {
+  fetch(`/api/users/${id}`)
+    .then(res => res.json())
+    .then(data => setUser(data));
+}, [id]);
+If id changes or component unmounts before the request finishes, the old request still completes.
+This can cause memory leaks, unnecessary API calls, or stale data.
+
+Pro Way ✅
+
+useEffect(() => {
+  const controller = new AbortController();
+
+  fetch(`/api/users/${id}`, {
+    signal: controller.signal,
+  })
+    .then(res => res.json())
+    .then(data => setUser(data));
+
+  return () => controller.abort();
+}, [id]);
+Notes
+AbortController is used to cancel an ongoing fetch request.
+Cleanup (return) runs when:
+Component unmounts.
+Dependency (id) changes.
+Prevents memory leaks, race conditions, and unnecessary network requests.
+
+Best Practice: Always clean up async operations (fetch requests, timers, subscriptions, event listeners) inside useEffect.
