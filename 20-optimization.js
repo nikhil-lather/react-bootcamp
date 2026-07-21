@@ -505,6 +505,7 @@ products keeps the same reference because of useMemo.
 handleAdd keeps the same function reference because of useCallback.
 ProductCard is wrapped with React.memo, so it sees that both product and onAdd props are unchanged.
 As a result, the ProductCard components do not re-render while you type.
+
 Quick Revision Table
 Technique	Purpose	Use When
 React.memo	Prevent unnecessary component re-renders	Child component props rarely change
